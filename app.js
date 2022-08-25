@@ -4,13 +4,13 @@ if (localStorage.getItem("duree")){ duree= localStorage.getItem("duree");}
 else {duree=10;}
 if (localStorage.getItem("taux_interet")){ taux_interet= localStorage.getItem("taux_interet");}
 else {taux_interet=5;}
-if (localStorage.getItem("tva")){ tva= localStorage.getItem("tva");}
-else {tva=19;}
+if (localStorage.getItem("taux_tva")){ taux_tva= localStorage.getItem("taux_tva");}
+else {taux_tva=19;}
 $("#montant").val(montant);
 $("#duree").val(duree)
 $("#taux_interet").val(taux_interet
 );
-$("#tva").val(tva);
+$("#taux_tva").val(taux_tva);
 $("#loader").hide();
 $("#all").dblclick(function () {
 var content = document.getElementById('all');
@@ -31,7 +31,8 @@ function f ()
 localStorage.setItem("montant", $("#montant").val());
 localStorage.setItem("duree", $("#duree").val());
 localStorage.setItem("taux_interet", $("#taux_interet").val());
-localStorage.setItem("tva", $("#tva").val());
+
+localStorage.setItem("taux_tva", $("#taux_tva").val());
 
 
 var montant=$("#montant").val().replaceAll(" ","");$("#montant").val(  formatMoney(montant)
