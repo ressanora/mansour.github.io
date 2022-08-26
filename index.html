@@ -112,11 +112,22 @@
  <form   onsubmit="return false;">
 <table>
     <tr>
-        <td>  <input type="text" class="form-control" id="montant" placeholder="Montant en DA" required> </td>
-            <td width='50'>   </td>
+        <td> 
+            <div class="input-group">
+  <input type="text" class="form-control" id="montant" placeholder="Montant en DA" required>
+  <div class="input-group-append">
+    <span class="input-group-text">DA</span>
+  </div>
+</div>
+            <td width='20'>   </td>
            
-        <td width='70'>   <input type="text" class="form-control" id="duree" placeholder="Durée" required></td>
-        <td width='50'>   </td>
+        <td width='120'>   
+            <div class="input-group">
+  <input type="text" class="form-control" width="30"  id="duree" placeholder="Durée" required>
+  <div class="input-group-append">
+    <span class="input-group-text">Durée</span>
+           </td>
+        <td width='30'>   </td>
         <td>   <select id="periodicite" class="form-control" required>
         <option  disabled>Périodicité</option>
         <option value='Y' selected><b>Annuelle</b> </option>
@@ -126,7 +137,7 @@
       </select></td>
 
 
-         <td width='50'>   </td>
+         <td width='30'>   </td>
         <td>   <select id="amortissement" class="form-control" required>
         <option  disabled>Type amortissement</option>
         <option value='c' selected>Constant</option>
@@ -134,11 +145,21 @@
         
       </select></td>
     
-      <td width='50'>   </td>
-        <td width='60'>   <input type="text" class="form-control" id="taux_interet" placeholder="Taux I" title='Taux d interêt en pourcentage' required></td>
+      <td width='30'>   </td>
+        <td width='100'> 
+            <div class="input-group">
+  <input type="text" class="form-control"   id="taux_interet" placeholder="Taux I" title='Taux d interêt en pourcentage' required>
+  <div class="input-group-append">
+    <span class="input-group-text">I %</span>
+         
+            </td>
 
-      <td width='50'>   </td>
-        <td width='60'>   <input type="text" class="form-control" id="taux_tva" value="19"  placeholder="TVA" title='TVA en pourcentage' required> </td>
+     <td width='30'>   </td>
+        <td width='120'> 
+            <div class="input-group">
+  <input type="text" class="form-control"  id="taux_tva" value="19"  placeholder="TVA" title='TVA en pourcentage' required>
+  <div class="input-group-append">
+    <span class="input-group-text small">Tva %</span>
         <td width='20'> </td>
         <td >       <button type="submit" id ="btn1" class="btn btn-primary">Calculer</button> </td>
     </tr>
