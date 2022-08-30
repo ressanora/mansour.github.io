@@ -18,8 +18,8 @@ content.select();
 })
 
 
-
-
+$("#btn_util").click(function () {  fn_modal_util (6);})
+$("#btn_ok").click(function () {    fn_modal_util_ok (6);})
 
 
 $("#documet").on('keyup', function (e) { if (e.key === 'Enter' || e.keyCode === 13) {    f ();  }});
@@ -35,8 +35,7 @@ localStorage.setItem("taux_interet", $("#taux_interet").val());
 localStorage.setItem("taux_tva", $("#taux_tva").val());
 
 
-var montant=$("#montant").val().replaceAll(" ","");$("#montant").val(  formatMoney(montant)
-);
+var montant=$("#montant").val().replaceAll(" ","");$("#montant").val(  formatMoney(montant));
 var periodicite=$("#periodicite").val();
 var duree=$("#duree").val();
 var amortissement=$("#amortissement").val();
@@ -86,3 +85,115 @@ str= pref +part.match(/(\d{1,3}(?:[\.|,]\d*)?)(?=(\d{3}(?:[\.|,]\d*)?)*$)/g ).jo
 };
 return str;
 }
+ function fn_modal_util(k)
+ {
+    $("#tab_util tbody").remove();
+    var tbody = $("<tbody></tbody>");
+    for (i = 0; i < k; i++) {
+        var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>        <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>      </svg> </a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_modal_util_ok("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_modal_util_ok("+i+")></td> <td><input type='text' class='form-control'  id='jour_util"+i+"' readonly></td> <td><input type='text' class='form-control'  id='inter_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_util"+i+"' readonly></td></tr>   " );
+        tbody.append(ligne);
+    }
+    var ligne = $(   "    <tr><td></td> <td> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td></td> <td></td> <td><input type='text' class='form-control'  id='total_inter_util' readonly> </td> <td><input type='text' class='form-control'  id='total_tva_util' readonly></td></tr>   " );
+    tbody.append(ligne);
+    $("#tab_util").append(tbody);
+
+    var montant=$("#montant").val().replaceAll(" ","");$("#montant_util").val(  formatMoney(montant));
+    if (localStorage.getItem("ce")){$("#ce").val( localStorage.getItem("ce")) ;}
+    if (localStorage.getItem("date_enga")){$("#date_enga").val( localStorage.getItem("date_enga")) ;}
+    for (i = 0; i < k; i++) {
+        if (localStorage.getItem("montant_util"+i)){$("#montant_util"+i).val( localStorage.getItem("montant_util"+i)) ;}
+
+        if (localStorage.getItem('date_util'+i)){$('#date_util'+i).val( localStorage.getItem('date_util'+i)) ;}
+
+    }
+
+
+
+    fn_modal_nbre_jour();
+ }
+
+function  fn_modal_util_ok(k)
+
+{   total=0;
+     localStorage.setItem("ce", $("#ce").val());
+     localStorage.setItem("date_enga", $("#date_enga").val());
+    for (i = 0; i < k; i++) {
+        localStorage.setItem("montant_util"+i, $("#montant_util"+i).val());
+        localStorage.setItem("date_util"+i, $("#date_util"+i).val());
+       if  ( $("#montant_util"+i).val()/1) total=total+ $("#montant_util"+i).val()/1
+        
+    }
+       $("#total_util").val(formatMoney(total))
+    fn_modal_nbre_jour();
+ 
+    
+
+}
+
+function fn_modal_nbre_jour()
+{
+   
+    for (i = 0; i < $('#tab_util tr').length; i++) {
+   
+     if ($("#date_enga").val())  {
+        if  ($("#date_util"+i).val())
+            {
+            var date = new Date($("#date_util"+i).val());     var day = date.getDate();     var month = date.getMonth() + 1;   var year = date.getFullYear();     end=new Date(([month,day,  year].join('/'))); 
+            var date = new Date($("#date_enga").val());     var day = date.getDate();     var month = date.getMonth() + 1;   var year = date.getFullYear();     start=new Date(([month,day,  year].join('/'))); ;
+            $("#jour_util"+i).val( Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24))); 
+            fn_cal_ce(i);
+            
+             }
+
+        else 
+        {
+            $("#jour_util"+i).val('');
+
+        }     
+     
+     
+    }
+    else 
+    {
+        $("#jour_util"+i).val('');
+
+    }  
+
+        
+    }
+
+}
+
+
+ function fn_cal_ce(i)
+ {
+
+    const nj=$("#jour_util"+i).val();
+    const ce=$("#ce").val();
+     const montant_util=$("#montant_util"+i).val();
+    if (nj/1 && ce/1 &&  montant_util/1){   taux_tva=$("#taux_tva").val();
+         $("#tva_util"+i).val(formatMoney((taux_tva*(montant_util*nj*ce/365)/100).toFixed(2))) ;
+         $("#inter_util"+i).val(formatMoney((montant_util*nj*ce /365).toFixed(2))) ;
+      
+
+
+        }
+    else  $("#inter_util"+i).val("") ;
+
+ }
+
+
+ function fn_removeid(id)
+ {
+    $("#"+id).remove()
+
+ }
+ function fn_add_tr()
+ {
+    i=($('#tab_util tbody tr').length);
+    var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')> <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>        <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>      </svg> </a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_modal_util_ok("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_modal_util_ok("+i+")></td> <td><input type='text' class='form-control'  id='jour_util"+i+"' readonly></td> <td><input type='text' class='form-control'  id='inter_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_util"+i+"' readonly></td></tr>   " );
+   
+$('#tab_util > tbody > tr').eq(i-2).after(ligne);
+
+ }
+ 
