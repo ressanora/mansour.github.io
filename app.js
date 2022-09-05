@@ -1,7 +1,12 @@
 
+if (localStorage.getItem("user_id")){ $("#user_id").val( localStorage.getItem("user_id"));}
+if (localStorage.getItem("password")){ $("#password").val( localStorage.getItem("password"));}
 $("#login_btn").click(function () { 
     user_id= $("#user_id").val(); password=$("#password").val();
-    if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();}
+    if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();
+    localStorage.setItem("user_id", user_id); localStorage.setItem("password", password);
+
+}
 
   })
 
