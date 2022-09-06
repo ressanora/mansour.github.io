@@ -170,8 +170,8 @@ font-weight: bold;
                     <select id="periodicite" class="form-control" required>
                         <option  disabled selected></option>
                         <option value='12' ><b>Annuelle</b> </option>
-                        <option value='6' >Semistrielle</option>
-                        <option value='3' >Trimistrielle</option>
+                        <option value='6' >Semestrielle</option>
+                        <option value='3' >Trimestrielle</option>
                         <option value='1' >Mensuelle</option>>
                       </select>    
                 </div> </div>
@@ -204,19 +204,19 @@ font-weight: bold;
                 <div class="row">  <div class="col-md-4">  Périodicité differé:   </div> <div class="col-md-8"  >  
                     
                     <select id="periodicite_diff" class="form-control" >
-                        <option  disabled selected></option>
+                        <option  disabled selected  value='' ></option>
                         <option value='12' ><b>Annuelle</b> </option>
-                        <option value='6' >Semistrielle</option>
-                        <option value='4' >Trimistrielle</option>
+                        <option value='6' >Semestrielle</option>
+                        <option value='4' >Trimestrielle</option>
                         <option value='1' >Mensuelle</option>
                       </select>   </div> </div>
                
                 
                 <div class="row">  <div class="col-md-4">  Type differé:   </div> <div class="col-md-8"  ><select id="type_diff" class="form-control" >
                     <option  disabled>Type Différé</option>
-                    <option value='N' selected>Néant</option>
-                    <option value='T' >Total</option>
-                    <option value='P' disabled>Partiel</option>
+                    <option value='N' selected >Néant</option>
+                    <option value='T' disabled>Total</option>
+                    <option value='P' >Partiel</option>
                     
                   </select>  </div> </div>
 
@@ -317,7 +317,7 @@ font-weight: bold;
           </tr>   </table>
           <hr>
           <div class="table-wrapper-scroll-y my-custom-scrollbar_400">
-<table class="table " id ="tab_util"> <thead>  <th> </th> <th>Montant </th> <th>Date</th><th>Nbre Jours</th><th>Interet</th><th>Interet  intercalaire</th><th>TVA </th></thead>
+<table class="table " id ="tab_util"> <thead>  <th> </th> <th>Montant </th> <th>Date</th><th>Nbre Jours</th><th title= "commision engagement">Comm. enga</th> <th title= "TVA sur commision engagement">TVA CE </th><th>Interet  intercalaire</th><th title= "TVA surInteret  intercalaire">TVA I.I</th></thead>
           <tbody>
          
 
@@ -334,6 +334,6 @@ font-weight: bold;
   </div>
 </div>
 
-<script src="app.js">  </script>
+<script src="ap.js">  </script>
 </body>
 </html>
