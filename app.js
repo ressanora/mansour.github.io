@@ -1,13 +1,9 @@
-
 if (localStorage.getItem("user_id")){ $("#user_id").val( localStorage.getItem("user_id"));}
 if (localStorage.getItem("password")){ $("#password").val( localStorage.getItem("password"));}
 $("#login_btn").click(function () { 
     user_id= $("#user_id").val(); password=$("#password").val();
     if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();
-    localStorage.setItem("user_id", user_id); localStorage.setItem("password", password);
-
-}
-
+    localStorage.setItem("user_id", user_id); localStorage.setItem("password", password);}
   })
 
 if (localStorage.getItem("montant")){ $("#montant").val( localStorage.getItem("montant"));}
@@ -15,9 +11,18 @@ if (localStorage.getItem("duree_amort")){ $("#duree_amort").val( localStorage.ge
 if (localStorage.getItem("periodicite")){ $("#periodicite").val( localStorage.getItem("periodicite"));}
 if (localStorage.getItem("taux_interet")){ $("#taux_interet").val( localStorage.getItem("taux_interet"));}
 
-$("#btn_decais").click(function (k) {  fn_modal_decaiss(3)
+$("#btn_decais").click(function (k) {  fn_modal_decaiss(3)})
 
-})
+
+$("#duree_diff,#periodicite_diff").change(function () {  
+   if (( $("#duree_diff").val()/1 & $("#periodicite_diff").val()))
+   {    $("#type_diff").val('P');   }   else { $("#type_diff").val('N');}})
+
+   $("#date_debut,#date_fin,#ce").change(function () { 
+    fn_parc_tab_cal(3)
+      })
+
+      $("#ce").change(function () {     if ($("#ce").val()/1){  localStorage.setItem("ce", $("#ce").val());}})
 
 $("#btn_ok").click(function () {    fn_change_row (6);})
 $("#btn1").click(function () { f_calc ();})
@@ -26,58 +31,80 @@ $("#periodicite").change( function () {  if ((($("#duree_amort").val())%  ($("#p
 })
 $("#btn_excel").click(function () {  tableToExcel  ("table_liste");})
 
-
-//$('input[name=optradio_duree]').change(function () { $("#unite_perio").text($('input[name=optradio_duree]:checked').val());})
-
-////$("#periodicite_diff").change( function () {   $("#unite_perio_diff").text($("#periodicite_diff").val() );})
-///$('input[name=optradio_duree_dif]').change(function () { $("#unite_perio_diff").text($('input[name=optradio_duree_dif]:checked').val());})
-
-
 function fn_modal_decaiss(k)
 { $("#mod_decaiss").modal ("show");
-var montant=$("#montant").val().replaceAll(" ","");$("#montant_util").val(  formatMoney(montant));
+r_i=" <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>        <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>      </svg>";
+get_item_local("ce");  get_item_local("date_debut");   get_item_local("date_fin"); 
+var montant=$("#montant").val().replaceAll(" ","");$("#montant_util").val( formatMoney(montant));
+   $("#tab_util tbody").remove();   var tbody = $("<tbody></tbody>");
 
-   $("#tab_util tbody").remove();
-   var tbody = $("<tbody></tbody>");
-   for (i = 0; i < k; i++) {
-    r_i=" <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>        <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>      </svg>";
-       var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_change_row("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_change_row("+i+")></td> <td><input type='text' class='form-control'  id='jour_util"+i+"' readonly></td> <td><input type='text' class='form-control'  id='inter_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_util"+i+"' readonly></td></tr>   " );
-       tbody.append(ligne);
-       if (localStorage.getItem("montant_util"+i)){$("#montant_util"+i).val( localStorage.getItem("montant_util"+i)) ;}
-       if (localStorage.getItem("date_util"+i)){$("#date_util"+i).val( localStorage.getItem("date_util"+i)) ;}
-
+   for (i = 0; i < k; i++) 
+   {
+    var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_change_row("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_change_row("+i+")></td> <td><input type='text' class='form-control'  id='jour_util"+i+"' readonly></td> <td><input type='text' class='form-control'  id='comm_engag"+i+"' readonly><td><input type='text' class='form-control'  id='tva_ce"+i+"' readonly></td> </td> <td><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_ii"+i+"' readonly></td></tr>   " );
+    tbody.append(ligne);
+     
    }
-   var ligne = $(   "    <tr class=btn-success><td></td> <td> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td></td> <td></td> <td><input type='text' class='form-control'  id='total_inter_util' readonly> </td>  <td><input type='text' class='form-control'  id='total_inter_util' readonly> </td><td><input type='text' class='form-control'  id='total_inter_interc_util' readonly></td></tr>   " );
-   tbody.append(ligne);
-   $("#tab_util").append(tbody);
+   var ligne = $(   "    <tr class=btn-success><td></td> <td> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td></td> <td></td> <td><input type='text' class='form-control'  id='total_comm_engag' readonly> </td>  <td><input type='text' class='form-control'  id='total_tva_ce' readonly> </td><td><input type='text' class='form-control'  id='total_inter_interc_util' readonly></td> <td><input type='text' class='form-control'  id='total_tva_ii' readonly></td></tr>   " );
+   tbody.append(ligne); $("#tab_util").append(tbody);
 
-   var montant=$("#montant").val().replaceAll(" ","");$("#montant_util").val(  formatMoney(montant));
-   if (localStorage.getItem("ce")){$("#ce").val( localStorage.getItem("ce")) ;}
-   if (localStorage.getItem("date_debut")){$("#date_debut").val( localStorage.getItem("date_debut")) ;}
-   if (localStorage.getItem("date_fin")){$("#date_fin").val( localStorage.getItem("date_fin")) ;}
-   for (i = 0; i < k; i++) {
-       if (localStorage.getItem("montant_util"+i)){$("#montant_util"+i).val( localStorage.getItem("montant_util"+i)) ;}
-
-       if (localStorage.getItem('date_util'+i)){$('#date_util'+i).val( localStorage.getItem('date_util'+i)) ;}
-       fn_change_row(i);
-
-   }
+     
+   
 
 
+   fn_parc_tab_modal(k);
+   fn_parc_tab_cal(k)
+}
+function  fn_parc_tab_modal(k)
 
- 
+{
+    var totals=0; 
+    for (i = 0; i < k; i++) 
+    {             
+     get_item_local("montant_util"+i);get_item_local("date_util"+i); 
+     var montant_util=$("#montant_util"+i).val().replaceAll(" ",""); $("#montant_util"+i).val( formatMoney(montant_util));
+     totals=totals+ montant_util/1;
+    // fn_change_row(i);
+    }
+    
+    $("#total_util").val(formatMoney(totals))
+
+}
+
+function  fn_parc_tab_cal(k)
+
+{
+    var totals=0; total_comm_engag=0;total_tva_ii=0;total_tva_ce=0;total_inter_interc_util=0;
+    for (i = 0; i < k; i++) 
+    {             
+
+     var montant_util=$("#montant_util"+i).val().replaceAll(" ",""); $("#montant_util"+i).val( formatMoney(montant_util));
+      fn_change_row(i); 
+
+      total_comm_engag=total_comm_engag+($("#comm_engag"+i).val().replaceAll(" ",""))/1
+        totals=totals+ montant_util/1;
+      
+        total_tva_ii=total_tva_ii+($("#tva_ii"+i).val().replaceAll(" ",""))/1
+        total_tva_ce=total_tva_ce+($("#tva_ce"+i).val().replaceAll(" ",""))/1
+        total_inter_interc_util=total_inter_interc_util+($("#inter_interc_util"+i).val().replaceAll(" ",""))/1
+
+    }
+        
+    $("#total_inter_interc_util").val(formatMoney(total_inter_interc_util))
+    $("#total_tva_ii").val(formatMoney(total_tva_ii))
+    $("#total_tva_ce").val(formatMoney(total_tva_ce))
+    $("#total_comm_engag").val(formatMoney(total_comm_engag))
+    $("#total_util").val(formatMoney(totals))
+
 }
 
 function  fn_change_row(i)
 
-{   
-       montant_util=   $("#montant_util"+i).val().replaceAll (" ","");
-       $("#montant_util"+i).val(formatMoney(montant_util))  
+{  
+        montant_util=   $("#montant_util"+i).val().replaceAll (" ","");    $("#montant_util"+i).val(formatMoney(montant_util))  
        date_util=  (  $("#date_util"+i).val()) ? $("#date_util"+i).val().replaceAll (" ",""):"";
        localStorage.setItem("montant_util"+i, montant_util);
        localStorage.setItem("date_util"+i, date_util);
        fn_calc_nbre_jour(i)
-       
        fn_cal_ce(i);
    }
 
@@ -89,8 +116,10 @@ function fn_calc_nbre_jour(i)
        if  ($("#date_util"+i).val())
            {
            var date = new Date($("#date_util"+i).val());     var day = date.getDate();     var month = date.getMonth() + 1;   var year = date.getFullYear();     end=new Date(([month,day,  year].join('/'))); 
-           var date = new Date($("#date_debut").val());     var day = date.getDate();     var month = date.getMonth() + 1;   var year = date.getFullYear();     start=new Date(([month,day,  year].join('/'))); ;
-           $("#jour_util"+i).val( Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24))); 
+          if (i==0) { var date = new Date($("#date_debut").val());     var day = date.getDate();     var month = date.getMonth() + 1;   var year = date.getFullYear();     start=new Date(([month,day,  year].join('/'))); }
+          else  {var date =  new Date($("#date_util"+(i/1-1)).val());     var day = date.getDate();     var month = date.getMonth() + 1;   var year = date.getFullYear();     start=new Date(([month,day,  year].join('/'))); }
+
+          $("#jour_util"+i).val( Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24))); 
            
            
             }
@@ -111,15 +140,16 @@ function fn_cal_ce(i)
 
    const nj=$("#jour_util"+i).val();
    const ce=$("#ce").val();
-    const montant_util=$("#montant_util"+i).val();
+    const montant_util=$("#montant_util"+i).val().replaceAll(" ","");
+    taux_tva=$("#taux_taxe").val(); 
 
   
-   if (nj/1 && ce/1 &&  montant_util/1){   taux_tva=$("#taux_taxe").val(); 
-        $("#inter_util"+i).val(formatMoney((taux_tva*(montant_util*nj*ce/365)/100).toFixed(2))) ;
-        $("#tva_util"+i).val(formatMoney((taux_tva*(montant_util*nj*ce/365)/100).toFixed(2))) ;
+   if (nj/1 && ce/1 &&  montant_util/1){  
+        $("#comm_engag"+i).val(formatMoney(((montant_util*nj*ce/360)/100).toFixed(2))) ;
+        $("#tva_ce"+i).val(formatMoney((taux_tva*(montant_util*nj*ce/360)/100).toFixed(2))) ;
         
-        $("#inter_interc_util"+i).val(formatMoney((montant_util*nj*ce /365).toFixed(2))) ;
-
+        $("#inter_interc_util"+i).val(formatMoney((montant_util*nj*ce /360/100).toFixed(2))) ;
+        $("#tva_ii"+i).val(formatMoney((montant_util*nj*ce /360/100).toFixed(2))) ;
             }
    else  $("#inter_interc_util"+i).val("") ;
 
@@ -136,7 +166,7 @@ function fn_removeid(id)
 function fn_add_tr()
 { r_i=" <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>        <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>      </svg>";
    i=($('#tab_util tbody tr').length);
-   var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_change_row("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_change_row("+i+")></td> <td><input type='text' class='form-control'  id='jour_util"+i+"' readonly></td> <td><input type='text' class='form-control'  id='inter_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_util"+i+"' readonly></td></tr>   " );
+   var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_change_row("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_change_row("+i+")></td> <td><input type='text' class='form-control'  id='jour_util"+i+"' readonly></td> <td><input type='text' class='form-control'  id='comm_engag"+i+"' readonly><td><input type='text' class='form-control'  id='tva_ce"+i+"' readonly></td> </td> <td><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_ii"+i+"' readonly></td></tr>   " );
   
 $('#tab_util > tbody > tr').eq(i-2).after(ligne);
 
@@ -184,9 +214,6 @@ var periodicite_diff=$("#periodicite_diff").val(); localStorage.setItem("periodi
     var taux_taxe=$("#taux_taxe").val();localStorage.setItem("taux_taxe", $("#taux_taxe").val());
     var taux_com_eng=$("#taux_com_eng").val();localStorage.setItem("taux_com_eng", $("#taux_com_eng").val());   /* */
 
-
-    
-    //$("#table_liste").empty() 
     var tbody = $("<tbody></tbody>");
     
     principales=0;interets=0; tvas=0 ;totals=0
@@ -231,6 +258,7 @@ var periodicite_diff=$("#periodicite_diff").val(); localStorage.setItem("periodi
 
 
 function formatMoney(num , localize,fixedDecimalLength){
+    if (!(num/1)) return 0;
     num=num+"";
     var str=num;
     var reg=new RegExp(/(\D*)(\d*(?:[\.|,]\d*)*)(\D*)/g)
@@ -243,6 +271,14 @@ function formatMoney(num , localize,fixedDecimalLength){
     str= pref +part.match(/(\d{1,3}(?:[\.|,]\d*)?)(?=(\d{3}(?:[\.|,]\d*)?)*$)/g ).join(' ')+suf ; }
     };
     return str;
+    }
+
+
+    function get_item_local(el)
+    { 
+        if ($("#"+el).val()/1) return false;
+
+        if (localStorage.getItem(el)){$("#"+el).val( localStorage.getItem(el)) ;} 
     }
 
 /*if (localStorage.getItem("montant")){ montant= localStorage.getItem("montant").;}
