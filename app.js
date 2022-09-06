@@ -89,11 +89,11 @@ function  fn_parc_tab_cal(k)
 
     }
         
-    $("#total_inter_interc_util").val(formatMoney(total_inter_interc_util))
-    $("#total_tva_ii").val(formatMoney(total_tva_ii))
-    $("#total_tva_ce").val(formatMoney(total_tva_ce))
-    $("#total_comm_engag").val(formatMoney(total_comm_engag))
-    $("#total_util").val(formatMoney(totals))
+    $("#total_inter_interc_util").val(formatMoney(total_inter_interc_util.toFixed(2)))
+    $("#total_tva_ii").val(formatMoney(total_tva_ii.toFixed(2)))
+    $("#total_tva_ce").val(formatMoney(total_tva_ce.toFixed(2)))
+    $("#total_comm_engag").val(formatMoney(total_comm_engag.toFixed(2)))
+    $("#total_util").val(formatMoney(totals.toFixed(2)))
 
 }
 
@@ -259,6 +259,7 @@ var periodicite_diff=$("#periodicite_diff").val(); localStorage.setItem("periodi
 
 function formatMoney(num , localize,fixedDecimalLength){
     if (!(num/1)) return 0;
+    
     num=num+"";
     var str=num;
     var reg=new RegExp(/(\D*)(\d*(?:[\.|,]\d*)*)(\D*)/g)
