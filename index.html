@@ -213,8 +213,8 @@ font-weight: bold;
                 </div> </div>
                 <div class="row">  <div class="col-md-4">  Périodicité differé:   </div> <div class="col-md-8"  >  
                     
-                    <select disabled id="periodicite_diff" value='0' class="form-control" >
-                        <option  disabled selected  value='' ></option>
+                    <select disabled id="periodicite_diff" class="form-control" >
+                        <option  disabled selected   value='0' ></option>
                         <option value='12' ><b>Annuelle</b> </option>
                         <option value='6' >Semestrielle</option>
                         <option value='3' >Trimestrielle</option>
@@ -271,11 +271,12 @@ font-weight: bold;
      </div>
 
                 <hr>
+                
                   
 <div class="table-wrapper-scroll-y my-custom-scrollbar_400">
     <table class="table table-striped" id="table_liste"> 
 
-<thead class="thead-dark">
+<thead class="table-secondary">
 <th>N°</th><th>Encours</th><th>Principale</th><th>Interet</th><th>TVA</th><th >Total 
 &nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp <img src='excel.jpg'   height='40' width='40' title='exporter vers excel' id="btn_excel"> </th>
 </thead>
@@ -303,8 +304,8 @@ font-weight: bold;
           <td> 
              <div class="input-group">  <input type="text" class="form-control" id="montant_util" readonly placeholder="Montant en DA">
   <div class="input-group-append">    <span class="input-group-text">DA</span>  </div></div>
-            </td>  <td> <b>Date Début:</b> </td>     <td >    <input type="date"    class="form-control" id="date_debut"  title='date début utilisation' >   </td> 
-            <td> <b>Date Fin:</b> </td>     <td >    <input type="date"    class="form-control" id="date_fin"   title='date Fin utilisation'>   </td>
+            </td>  <td> <b>D.Début:</b> </td>     <td >    <input type="date"    class="form-control" id="date_debut"  title='date début utilisation' >   </td> 
+            <td> <b>D.Fin:</b> </td>     <td >    <input type="date"    class="form-control" id="date_fin"   title='date Fin utilisation'>   </td>
             <td  width="110"  >             <div class="input-group">
   <input type="text" class="form-control"  id="ce"   placeholder="CE" title='Commission sur engagement' required>
 
