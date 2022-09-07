@@ -40,9 +40,13 @@ $("#btn_decais").click(function (k) {  fn_modal_decaiss(3)})
 
 $("#btn_ok").click(function () {    fn_change_row (6);})
 $("#btn1").click(function () { f_calc ();})
-$("#periodicite").change( function () {  if ((($("#duree_amort").val())%  ($("#periodicite").val())) ==0) {}
+$("#periodicite,#duree_amort").change( function () {  if (((($("#duree_amort").val())%  ($("#periodicite").val())) !=0) & $("#periodicite").val()!=0)  {
+alert("La durée doit être le plutiple de la  périodicité !!!!!") ;$("#periodicite").val(0);}})
 
-})
+$("#periodicite_diff,#duree_diff").change( function () {  if ((($("#duree_diff").val())%  ($("#periodicite_diff").val()) !=0 ) & $("#periodicite_diff").val()!=0) {
+    alert("La durée doit être le plutiple de la  périodicité !!!!!") ;$("#periodicite_diff").val(0);}})
+    
+
 $("#btn_excel").click(function () {  tableToExcel  ("table_liste");})
 
 function fn_modal_decaiss(k)
@@ -59,7 +63,7 @@ var montant=$("#montant").val().replaceAll(" ","");$("#montant_util").val( forma
     tbody.append(ligne);
      
    }
-   var ligne = $(   "    <tr class=btn-success><td></td> <td> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td></td> <td></td> <td><input type='text' class='form-control'  id='total_comm_engag' readonly> </td>  <td><input type='text' class='form-control'  id='total_tva_ce' readonly> </td><td></td><td><input type='text' class='form-control'  id='total_inter_interc_util' readonly></td> <td><input type='text' class='form-control'  id='total_tva_ii' readonly></td></tr>   " );
+   var ligne = $(   "    <tr class=table-secondary><td></td> <td> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td></td> <td></td> <td><input type='text' class='form-control'  id='total_comm_engag' readonly> </td>  <td><input type='text' class='form-control'  id='total_tva_ce' readonly> </td><td></td><td><input type='text' class='form-control'  id='total_inter_interc_util' readonly></td> <td><input type='text' class='form-control'  id='total_tva_ii' readonly></td></tr>   " );
    tbody.append(ligne); $("#tab_util").append(tbody);
 
      
@@ -285,7 +289,7 @@ var periodicite_diff=$("#periodicite_diff").val(); set_item_local("periodicite_d
     }
  if (( duree_amort/periodicite)%2==0)  {var ligne = $("<tr  ></tr>" );  ligne.append("<td> </td><td></td><td></td><td></td><td></td><td><b></b></td>");
     tbody.append(ligne);} 
-    var ligne = $("<tr class=btn-success ></tr>" )
+    var ligne = $("<tr class=table-dark ></tr>" )
     ligne.append("<td> Total</td><td></td><td>"+formatMoney(principales.toFixed(2))+"</td><td>"+formatMoney(interets.toFixed(2))+"</td><td>"+formatMoney(tvas.toFixed(2))+"</td><td><b>"+formatMoney(totals.toFixed(2))+"</b></td>");
     tbody.append(ligne);
     $("#table_liste").append(tbody);
