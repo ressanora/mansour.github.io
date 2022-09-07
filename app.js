@@ -1,7 +1,7 @@
 
 $("#login_btn").click(function () { 
     user_id= $("#user_id").val(); password=$("#password").val();
-    if (user_id=="test" & password=="113") { $('#div_auten').hide(); $('#app').show();
+    if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();
     localStorage.setItem("user_id", user_id); localStorage.setItem("password", password);}
   })
   $("#type_diff").change(function () { 
