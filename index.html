@@ -14,6 +14,9 @@
 
   
   <style type="text/css">
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 
 
 
@@ -149,7 +152,7 @@ font-weight: bold;
               <div class="panel panel-default">
                 <div class="panel-heading"></div>
                 <div class="panel-body">
-                <div class="row">  <div class="col-md-4" >  Montant:   </div> <div class="col-md-8"  >      <input type="text" class="form-control" id="montant" placeholder="Montant en DA" required>  
+                <div class="row">  <div class="col-md-4" >  Montant:   </div> <div class="col-md-8"  >      <input type="text" class="form-control" id="montant" pattern='[0-9 ]*' placeholder="Montant en DA" required>  
              </div></div>
           
 
@@ -178,8 +181,8 @@ font-weight: bold;
 
                 <div class="row">  <div class="col-md-4">  Type echéance:   </div> <div class="col-md-8"  ><select id="type_echeance" class="form-control" required>
                     <option  disabled ></option>
-                    <option value='AC' selected >Amortis. constant</option>
-                    <option value='ET' >Echéance constante</option>
+                    <option value='AC' disabled >Amortis. constant</option>
+                    <option value='ET' selected>Echéance constante</option>
                    
                     
                   </select>  </div> </div>
@@ -193,25 +196,6 @@ font-weight: bold;
 
 
               <div class="col-md-4">
-                <div class="row">  <div class="col-md-4">  Durée differé:   </div> <div class="col-md-8"  > 
-                    
-                    <div class="input-group">
-                        <input type="text" class="form-control" width="30"  id="duree_diff" placeholder="Durée en mois " >
-                      
-                          <span id ='unite_perio_diff' class="input-group-text small"> Mois</span></div>
-                
-                </div> </div>
-                <div class="row">  <div class="col-md-4">  Périodicité differé:   </div> <div class="col-md-8"  >  
-                    
-                    <select id="periodicite_diff" class="form-control" >
-                        <option  disabled selected  value='' ></option>
-                        <option value='12' ><b>Annuelle</b> </option>
-                        <option value='6' >Semestrielle</option>
-                        <option value='4' >Trimestrielle</option>
-                        <option value='1' >Mensuelle</option>
-                      </select>   </div> </div>
-               
-                
                 <div class="row">  <div class="col-md-4">  Type differé:   </div> <div class="col-md-8"  ><select id="type_diff" class="form-control" >
                     <option  disabled>Type Différé</option>
                     <option value='N' selected >Néant</option>
@@ -219,6 +203,26 @@ font-weight: bold;
                     <option value='P' >Partiel</option>
                     
                   </select>  </div> </div>
+                <div class="row">  <div class="col-md-4">  Durée differé:   </div> <div class="col-md-8"  > 
+                    
+                    <div class="input-group">
+                        <input disabled type="text" class="form-control" width="30"  id="duree_diff" placeholder="Durée en mois " >
+                      
+                          <span id ='unite_perio_diff' class="input-group-text small"> Mois</span></div>
+                
+                </div> </div>
+                <div class="row">  <div class="col-md-4">  Périodicité differé:   </div> <div class="col-md-8"  >  
+                    
+                    <select disabled id="periodicite_diff" value='0' class="form-control" >
+                        <option  disabled selected  value='' ></option>
+                        <option value='12' ><b>Annuelle</b> </option>
+                        <option value='6' >Semestrielle</option>
+                        <option value='3' >Trimestrielle</option>
+                        <option value='1' >Mensuelle</option>
+                      </select>   </div> </div>
+               
+                
+               
 
 
               </div>
@@ -253,13 +257,7 @@ font-weight: bold;
                 
 
 
-                <div class="row">  <div class="col-md-8">  Taux commission engagement :   </div> <div class="col-md-4"  >  
-                    
-                    <div class="input-group">
-                        <input type="text" class="form-control"  id="taux_com_eng" value="0"    required>
-                      
-                          <span class="input-group-text small">%</span></div> 
-                </div> </div>
+                
                 <hr>
                    
                 <div class="row">  <div class="col-md-7">   <button type="submit" id ="btn1" class="btn btn-primary">Calculer</button>      </div>  
@@ -317,7 +315,7 @@ font-weight: bold;
           </tr>   </table>
           <hr>
           <div class="table-wrapper-scroll-y my-custom-scrollbar_400">
-<table class="table " id ="tab_util"> <thead>  <th> </th> <th>Montant </th> <th>Date</th><th>Nbre Jours</th><th title= "commision engagement">Comm. enga</th> <th title= "TVA sur commision engagement">TVA CE </th><th>Interet  intercalaire</th><th title= "TVA surInteret  intercalaire">TVA I.I</th></thead>
+<table class="table " id ="tab_util"> <thead>  <th> </th> <th>Montant </th> <th>Date</th><th title="Nombre de jours commissions sur engagement" class="table-primary"> Jours</th><th class='table-primary' title= "commision engagement">Comm. enga</th> <th class='table-primary' title= "TVA sur commision engagement">TVA CE </th><th class='table-info'  title="Nombre de jours commissions sur interet intercalaire" >Jours</th><th class='table-info'  title ="interet intercalaires ">Interet I</th><th class='table-info'  title= "TVA surInteret  intercalaire">TVA I.I</th></thead>
           <tbody>
          
 
