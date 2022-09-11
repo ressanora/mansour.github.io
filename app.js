@@ -41,10 +41,10 @@ $("#btn_decais").click(function (k) {  fn_modal_decaiss(3)})
 $("#btn_ok").click(function () {    fn_change_row (6);})
 $("#btn1").click(function () { f_calc ();})
 $("#periodicite,#duree_amort").change( function () {  if (((($("#duree_amort").val())%  ($("#periodicite").val())) !=0) & $("#periodicite").val()!=0)  {
-alert("La durée doit être le plutiple de la  périodicité !!!!!") ;$("#periodicite").val(0);}})
+alert("La durée doit être le Mlutiple de la  périodicité !!!!!") ;$("#periodicite").val(0);}})
 
-$("#periodicite_diff,#duree_diff").change( function () {  if ((($("#duree_diff").val())%  ($("#periodicite_diff").val()) !=0 ) & $("#periodicite_diff").val()!=0) {
-    alert("La durée doit être le plutiple de la  périodicité !!!!!") ;$("#periodicite_diff").val(0);}})
+$("#periodicite_diff,#duree_diff").change( function () {  if ((($("#duree_diff").val())%  ($("#periodicite_diff").val()) !=0 ) & $("#periodicite_diff").val()!=0 & $("#periodicite_diff").val()!=null) {
+ alert("La durée doit être le Mlutiple de la  périodicité !!!!!") ;$("#periodicite_diff").val(0);}})
     
 
 $("#btn_excel").click(function () {  tableToExcel  ("table_liste");})
@@ -245,7 +245,7 @@ function f_calc ()
     var montant=$("#montant").val().replaceAll(" ","");    $("#montant").val(  formatMoney(montant)); set_item_local("montant");
     var periodicite=$("#periodicite").val(); set_item_local("periodicite");
     var duree_amort=$("#duree_amort").val();  set_item_local("duree_amort");
-var periodicite_diff=$("#periodicite_diff").val(); set_item_local("periodicite_diff");
+    var periodicite_diff=$("#periodicite_diff").val(); set_item_local("periodicite_diff");
     var duree_diff=$("#duree_diff").val();set_item_local("duree_diff");
     var type_diff=$("#type_diff").val();set_item_local("type_diff");
     var type_echeance=$("#type_echeance").val();set_item_local("type_echeance");
@@ -259,19 +259,23 @@ var periodicite_diff=$("#periodicite_diff").val(); set_item_local("periodicite_d
     $("#table_liste tbody").remove();
     if (!(montant/1))  return false;if (!(duree_amort/1))  return false;if (!(taux_interet/1))  return false;if (!(taux_taxe/1))  return false;
     principale=0; 
+    difftotal=0;
 
     for (j = 0; j < duree_diff/periodicite_diff ; j++) {
 
+if (type_diff=='T')
         interet=(montant*taux_interet/100)/(12/periodicite_diff)
         tva=taux_taxe*interet/100
         total=principale+interet+tva
         var ligne = $("<tr class=text-warning ></tr>" )
-        ligne.append("<td>"+(j+1)+"</td><td>"+formatMoney((montant/1).toFixed(2))+"</td><td>"+formatMoney(principale.toFixed(2))+"</td><td>"+formatMoney(interet.toFixed(2))+"</td><td>"+formatMoney(tva.toFixed(2))+"</td><td><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+        ligne.append("<td>"+(j+1)+"</td><td>"+formatMoney(((montant/1)+(difftotal/1)).toFixed(2))+"</td><td>"+formatMoney(principale.toFixed(2))+"</td><td>"+formatMoney(interet.toFixed(2))+"</td><td>"+formatMoney(tva.toFixed(2))+"</td><td><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+        if (type_diff=='T'){ difftotal=difftotal+total;}
         tbody.append(ligne);
         interets=interets+interet;tvas=tvas+tva; totals =totals+total;
        
 
     }
+    montant= (montant/1)+(difftotal/1);
     var principale=montant/(duree_amort/periodicite);
     for (i = 0; i < duree_amort/periodicite; i++) {
     var ligne = $("<tr ></tr>" )
