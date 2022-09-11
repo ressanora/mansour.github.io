@@ -259,23 +259,24 @@ function f_calc ()
     $("#table_liste tbody").remove();
     if (!(montant/1))  return false;if (!(duree_amort/1))  return false;if (!(taux_interet/1))  return false;if (!(taux_taxe/1))  return false;
     principale=0; 
-    difftotal=0;
+  
 
     for (j = 0; j < duree_diff/periodicite_diff ; j++) {
 
-if (type_diff=='T')
+
         interet=(montant*taux_interet/100)/(12/periodicite_diff)
         tva=taux_taxe*interet/100
         total=principale+interet+tva
         var ligne = $("<tr class=text-warning ></tr>" )
-        ligne.append("<td>"+(j+1)+"</td><td>"+formatMoney(((montant/1)+(difftotal/1)).toFixed(2))+"</td><td>"+formatMoney(principale.toFixed(2))+"</td><td>"+formatMoney(interet.toFixed(2))+"</td><td>"+formatMoney(tva.toFixed(2))+"</td><td><b>"+formatMoney(total.toFixed(2))+"</b></td>");
-        if (type_diff=='T'){ difftotal=difftotal+total;}
+        ligne.append("<td>"+(j+1)+"</td><td>"+formatMoney(((montant/1)).toFixed(2))+"</td><td>"+formatMoney(principale.toFixed(2))+"</td><td>"+formatMoney(interet.toFixed(2))+"</td><td>"+formatMoney(tva.toFixed(2))+"</td><td><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+        if (type_diff=='T'){  
+          montant= (montant/1)+(total/1);}
         tbody.append(ligne);
         interets=interets+interet;tvas=tvas+tva; totals =totals+total;
        
 
     }
-    montant= (montant/1)+(difftotal/1);
+   
     var principale=montant/(duree_amort/periodicite);
     for (i = 0; i < duree_amort/periodicite; i++) {
     var ligne = $("<tr ></tr>" )
