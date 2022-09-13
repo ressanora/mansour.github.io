@@ -59,11 +59,11 @@ var montant=$("#montant").val().replaceAll(" ","");$("#montant_util").val( forma
    for (i = 0; i < k; i++) 
    {
     date_fin=$("#date_fin").val();date_debut=$("#date_debut").val();
-    var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td><input type='text' class='form-control' name='montant_util'  id='montant_util"+i+"'  min=0 pattern='[0-9]*'  placeholder='Montant en DA' onchange= fn_parc_tab_cal(3) ></td>  <td><input type='date' name='date_util'  min='"+date_debut+"' max='"+date_fin+"' class='form-control' id='date_util"+i+"' onchange= fn_parc_tab_cal(3)></td> <td class='table-primary'><input type='text' class='form-control' style='width: 60px;'   id='jnbre_jour_ce"+i+"' readonly></td> <td class='table-primary'><input type='text' class='form-control'  id='comm_engag"+i+"' readonly><td class='table-primary'><input type='text' class='form-control'  id='tva_ce"+i+"' readonly></td>  <td class='table-info' ><input type='text'  width='20' class='form-control'  style='width: 60px;'  id='nbre_jour_ii"+i+"' readonly></td><td class='table-info' ><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td class='table-info' ><input type='text' class='form-control'  id='tva_ii"+i+"' readonly></td></tr>   " );
+    var ligne = $(   "    <tr id='tr_util"+i+"'> <td  style='text-align: right'width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td  style='text-align: right'><input type='text' class='form-control' name='montant_util'  id='montant_util"+i+"'  min=0 pattern='[0-9]*'  placeholder='Montant en DA' onchange= fn_parc_tab_cal(3) ></td>  <td  style='text-align: right'><input type='date' name='date_util'  min='"+date_debut+"' max='"+date_fin+"' class='form-control' id='date_util"+i+"' onchange= fn_parc_tab_cal(3)></td> <td  style='text-align: right'class='table-primary'><input type='text' class='form-control' style='width: 60px;'   id='jnbre_jour_ce"+i+"' readonly></td> <td  style='text-align: right'class='table-primary'><input type='text' class='form-control'  id='comm_engag"+i+"' readonly><td  style='text-align: right'class='table-primary'><input type='text' class='form-control'  id='tva_ce"+i+"' readonly></td>  <td  style='text-align: right'class='table-info' ><input type='text'  width='20' class='form-control'  style='width: 60px;'  id='nbre_jour_ii"+i+"' readonly></td><td  style='text-align: right'class='table-info' ><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td  style='text-align: right'class='table-info' ><input type='text' class='form-control'  id='tva_ii"+i+"' readonly></td></tr>   " );
     tbody.append(ligne);
      
    }
-   var ligne = $(   "    <tr class=table-secondary><td></td> <td> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td></td> <td></td> <td><input type='text' class='form-control'  id='total_comm_engag' readonly> </td>  <td><input type='text' class='form-control'  id='total_tva_ce' readonly> </td><td></td><td><input type='text' class='form-control'  id='total_inter_interc_util' readonly></td> <td><input type='text' class='form-control'  id='total_tva_ii' readonly></td></tr>   " );
+   var ligne = $(   "    <tr class=table-secondary><td  style='text-align: right'></td> <td  style='text-align: right'> <input type='text' class='form-control'  id='total_util' placeholder='Total en DA' ></td>  <td  style='text-align: right'></td> <td  style='text-align: right'></td> <td  style='text-align: right'><input type='text' class='form-control'  id='total_comm_engag' readonly> </td>  <td  style='text-align: right'><input type='text' class='form-control'  id='total_tva_ce' readonly> </td><td  style='text-align: right'></td><td  style='text-align: right'><input type='text' class='form-control'  id='total_inter_interc_util' readonly></td> <td  style='text-align: right'><input type='text' class='form-control'  id='total_tva_ii' readonly></td></tr>   " );
    tbody.append(ligne); $("#tab_util").append(tbody);
 
      
@@ -206,7 +206,7 @@ function fn_removeid(id)
 function fn_add_tr()
 { r_i=" <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>        <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>        <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>      </svg>";
    i=($('#tab_util tbody tr').length);
-   var ligne = $(   "    <tr id='tr_util"+i+"'> <td width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_change_row("+i+")></td>  <td><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_change_row("+i+")></td> <td><input type='text' class='form-control'  id='jnbre_jour_ce"+i+"' readonly></td> <td><input type='text' class='form-control'  id='comm_engag"+i+"' readonly><td><input type='text' class='form-control'  id='tva_ce"+i+"' readonly></td> </td> <td><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td><input type='text' class='form-control'  id='tva_ii"+i+"' readonly></td></tr>   " );
+   var ligne = $(   "    <tr id='tr_util"+i+"'> <td  style='text-align: right'width='16'> <a href=# onclick= fn_removeid('tr_util"+i+"')>  "+r_i+"</a> </td><td  style='text-align: right'><input type='text' class='form-control'  id='montant_util"+i+"' placeholder='Montant en DA' onchange=fn_change_row("+i+")></td>  <td  style='text-align: right'><input type='date' class='form-control' id='date_util"+i+"' onchange=fn_change_row("+i+")></td> <td  style='text-align: right'><input type='text' class='form-control'  id='jnbre_jour_ce"+i+"' readonly></td> <td  style='text-align: right'><input type='text' class='form-control'  id='comm_engag"+i+"' readonly><td  style='text-align: right'><input type='text' class='form-control'  id='tva_ce"+i+"' readonly></td> </td> <td  style='text-align: right'><input type='text' class='form-control'  id='inter_interc_util"+i+"' readonly> </td> <td  style='text-align: right'><input type='text' class='form-control'  id='tva_ii"+i+"' readonly></td></tr>   " );
   
 $('#tab_util > tbody > tr').eq(i-2).after(ligne);
 
@@ -263,12 +263,12 @@ function f_calc ()
 
     for (j = 0; j < duree_diff/periodicite_diff ; j++) {
 
-
+//if (type_diff=='T')
         interet=(montant*taux_interet/100)/(12/periodicite_diff)
         tva=taux_taxe*interet/100
         total=principale+interet+tva
         var ligne = $("<tr class=text-warning ></tr>" )
-        ligne.append("<td>"+(j+1)+"</td><td>"+formatMoney(((montant/1)).toFixed(2))+"</td><td>"+formatMoney(principale.toFixed(2))+"</td><td>"+formatMoney(interet.toFixed(2))+"</td><td>"+formatMoney(tva.toFixed(2))+"</td><td><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+        ligne.append("<td  style='text-align: right'>"+(j+1)+"</td><td  style='text-align: right'>"+formatMoney(((montant/1)).toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(principale.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interet.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tva.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(total.toFixed(2))+"</b></td>");
         if (type_diff=='T'){  
           montant= (montant/1)+(total/1);}
         tbody.append(ligne);
@@ -287,15 +287,15 @@ function f_calc ()
     interet=(montant*taux_interet/100)/(12/periodicite)
     tva=taux_taxe*interet/100
     total=principale+interet+tva
-    ligne.append("<td>"+(j+i+1)+"</td><td>"+formatMoney((montant/1).toFixed(2))+"</td><td>"+formatMoney(principale.toFixed(2))+"</td><td>"+formatMoney(interet.toFixed(2))+"</td><td>"+formatMoney(tva.toFixed(2))+"</td><td><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+    ligne.append("<td  style='text-align: right'>"+(j+i+1)+"</td><td  style='text-align: right'>"+formatMoney((montant/1).toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(principale.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interet.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tva.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(total.toFixed(2))+"</b></td>");
     tbody.append(ligne);
     principales=principales+principale;interets=interets+interet;tvas=tvas+tva; totals =totals+total;
     montant=montant-principale;  
     }
- if (( duree_amort/periodicite)%2==0)  {var ligne = $("<tr  ></tr>" );  ligne.append("<td> </td><td></td><td></td><td></td><td></td><td><b></b></td>");
+ if (( duree_amort/periodicite)%2==0)  {var ligne = $("<tr  ></tr>" );  ligne.append("<td  style='text-align: right'> </td><td  style='text-align: right'></td><td  style='text-align: right'></td><td  style='text-align: right'></td><td  style='text-align: right'></td><td  style='text-align: right'><b></b></td>");
     tbody.append(ligne);} 
     var ligne = $("<tr class=table-dark ></tr>" )
-    ligne.append("<td> Total</td><td></td><td>"+formatMoney(principales.toFixed(2))+"</td><td>"+formatMoney(interets.toFixed(2))+"</td><td>"+formatMoney(tvas.toFixed(2))+"</td><td><b>"+formatMoney(totals.toFixed(2))+"</b></td>");
+    ligne.append("<td  style='text-align: right'> Total</td><td  style='text-align: right'></td><td  style='text-align: right'>"+formatMoney(principales.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interets.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tvas.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(totals.toFixed(2))+"</b></td>");
     tbody.append(ligne);
     $("#table_liste").append(tbody);
     }
