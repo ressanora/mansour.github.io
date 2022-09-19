@@ -1,4 +1,6 @@
 
+
+   
 $("#login_btn").click(function () { 
     user_id= $("#user_id").val(); password=$("#password").val();
     if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();
@@ -260,15 +262,19 @@ function f_calc ()
     if (!(montant/1))  return false;if (!(duree_amort/1))  return false;if (!(taux_interet/1))  return false;if (!(taux_taxe/1))  return false;
     principale=0; 
   
-
+     dt = $('#date_fin').val();
     for (j = 0; j < duree_diff/periodicite_diff ; j++) {
+      if( !$('#date_fin').val()) {vall=j+1;}
+      else {  vall = dt; 
+        if (j== (-1+duree_diff/periodicite_diff))dt=addMonths(new Date(dt), periodicite);
+        else  dt=addMonths(new Date(dt), periodicite_diff);  
+        }
 
-//if (type_diff=='T')
         interet=(montant*taux_interet/100)/(12/periodicite_diff)
         tva=taux_taxe*interet/100
         total=principale+interet+tva
         var ligne = $("<tr class=text-warning ></tr>" )
-        ligne.append("<td  style='text-align: right'>"+(j+1)+"</td><td  style='text-align: right'>"+formatMoney(((montant/1)).toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(principale.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interet.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tva.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+        ligne.append("<td  style='text-align: right'>"+ vall+"</td><td  style='text-align: right'>"+formatMoney(((montant/1)).toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(principale.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interet.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tva.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(total.toFixed(2))+"</b></td>");
         if (type_diff=='T'){  
           montant= (montant/1)+(total/1);}
         tbody.append(ligne);
@@ -279,6 +285,10 @@ function f_calc ()
    
     var principale=montant/(duree_amort/periodicite);
     for (i = 0; i < duree_amort/periodicite; i++) {
+
+      if( !$('#date_fin').val()) {vall=i+j+1;}
+      else {  vall = dt;          dt=addMonths(new Date(dt), periodicite);    }
+
     var ligne = $("<tr ></tr>" )
    
 
@@ -287,7 +297,7 @@ function f_calc ()
     interet=(montant*taux_interet/100)/(12/periodicite)
     tva=taux_taxe*interet/100
     total=principale+interet+tva
-    ligne.append("<td  style='text-align: right'>"+(j+i+1)+"</td><td  style='text-align: right'>"+formatMoney((montant/1).toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(principale.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interet.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tva.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(total.toFixed(2))+"</b></td>");
+    ligne.append("<td  style='text-align: right'>"+(vall)+"</td><td  style='text-align: right'>"+formatMoney((montant/1).toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(principale.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(interet.toFixed(2))+"</td><td  style='text-align: right'>"+formatMoney(tva.toFixed(2))+"</td><td  style='text-align: right'><b>"+formatMoney(total.toFixed(2))+"</b></td>");
     tbody.append(ligne);
     principales=principales+principale;interets=interets+interet;tvas=tvas+tva; totals =totals+total;
     montant=montant-principale;  
@@ -330,3 +340,29 @@ function formatMoney(num , localize,fixedDecimalLength){
      if ($("#"+el).val()!=''){  localStorage.setItem(el, $("#"+el).val());}
     }
    
+    
+
+    function addMonths(date, months) {
+      var d = date.getDate();
+      date.setMonth(date.getMonth() + +months);
+      if (date.getDate() != d) {
+        date.setDate(0);
+      }
+      return formatDate(date);
+  }
+
+  function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+  
