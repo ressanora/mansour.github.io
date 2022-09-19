@@ -1,7 +1,6 @@
 
-
-   
 $("#login_btn").click(function () { 
+  get_item_local("date_fin"); 
     user_id= $("#user_id").val(); password=$("#password").val();
     if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();
     localStorage.setItem("user_id", user_id); localStorage.setItem("password", password);}
@@ -263,6 +262,7 @@ function f_calc ()
     principale=0; 
   
      dt = $('#date_fin').val();
+     dt=addMonths(new Date(dt), periodicite_diff);
     for (j = 0; j < duree_diff/periodicite_diff ; j++) {
       if( !$('#date_fin').val()) {vall=j+1;}
       else {  vall = dt; 
