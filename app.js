@@ -1,5 +1,5 @@
 
-$("#login_btn").click(function () { 
+$("#login_btn").click(function () { ;
   get_item_local("date_fin"); 
     user_id= $("#user_id").val(); password=$("#password").val();
     if (user_id=="test" & password=="123") { $('#div_auten').hide(); $('#app').show();
